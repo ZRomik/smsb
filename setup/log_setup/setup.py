@@ -13,9 +13,7 @@ def configure_logging(level, disable_libs = True):
 
     logger = logging.getLogger()
 
-    msg_fmt = ("[%(asctime)-20s] %(levelname)-8s %(message)-s"
-               )
-
+    msg_fmt = "[%(asctime)-20s] %(levelname)-8s %(message)-s"
     date_fmt = "%d.%m.%Y в %H:%M:%S"
 
     formatter = logging.Formatter(fmt=msg_fmt, datefmt=date_fmt)
