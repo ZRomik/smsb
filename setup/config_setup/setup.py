@@ -41,3 +41,4 @@ def check_config_file(filenane: str = '.env'):
     except MissedRequiredParam as e:
         logger.critical(e)
         sys.exit(-1)
+    logger.info("Запуск бота...")
