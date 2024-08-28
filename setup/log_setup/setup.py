@@ -4,7 +4,7 @@ def setup_logging(level=logging.DEBUG):
     """
     Настройка логирования
     """
-    msg_fmt = "[%(asctime)-19s] %(levelname)-8s {%(funcName)-s} [%(module)-s] %(message)-s"
+    msg_fmt = "[%(asctime)-19s:%(msecs)-03d] %(levelname)-8s {%(filename)s %(funcName)s:%(lineno)d} > %(message)-s"
     date_fmt = "%d.%m.%Y %H:%M:%S"
     formatter = logging.Formatter(fmt=msg_fmt, datefmt=date_fmt)
 
