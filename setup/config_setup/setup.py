@@ -41,31 +41,31 @@ def check_required_params(filename: str = None):
     db_user = read_param('SMSB_DB_USER')
     db_pass = read_param('SMSB_DB_PASS')
 
-    if not bot_token:
-        raise RequiredParamNotExistsError("SMSB_TOKEN")
-    if not db_type:
-        raise RequiredParamNotExistsError("SMSB_DB_TYPE")
-    if not db_name:
-        raise RequiredParamNotExistsError("SMSB_DB_NAME")
-    if db_type != "3":
-        if not db_user:
-            raise RequiredParamNotExistsError("SMSB_DB_USER")
-        if not db_pass:
-            raise RequiredParamNotExistsError("SMSB_DB_PASS")
-    if not adm_cmd:
-        raise RequiredParamNotExistsError("SMSB_ADM")
-    if not adm_pass:
-        raise RequiredParamNotExistsError("SMSB_ADM_PASS")
-    if not sys_cmd:
-        raise RequiredParamNotExistsError("SMSB_SYS")
-    if not sys_pass:
-        raise RequiredParamNotExistsError("SMSB_SYS_PASS")
-    if db_type != "3":
-        if not db_user:
-            raise RequiredParamNotExistsError("SMSB_DB_USER")
-        if not db_pass:
-            raise RequiredParamNotExistsError("SMSB_DB_PASS")
-
-    logger.info(
-        "Проверка параметров успешно завершена."
-    )
+    try:
+        if not bot_token:
+            raise RequiredParamNotExistsError("SMSB_TOKEN")
+        if not db_type:
+            raise RequiredParamNotExistsError("SMSB_DB_TYPE")
+        if not db_name:
+            raise RequiredParamNotExistsError("SMSB_DB_NAME")
+        if db_type != "3":
+            if not db_user:
+                raise RequiredParamNotExistsError("SMSB_DB_USER")
+            if not db_pass:
+                raise RequiredParamNotExistsError("SMSB_DB_PASS")
+        if not adm_cmd:
+            raise RequiredParamNotExistsError("SMSB_ADM")
+        if not adm_pass:
+            raise RequiredParamNotExistsError("SMSB_ADM_PASS")
+        if not sys_cmd:
+            raise RequiredParamNotExistsError("SMSB_SYS")
+        if not sys_pass:
+            raise RequiredParamNotExistsError("SMSB_SYS_PASS")
+        if db_type != "3":
+            if not db_user:
+                raise RequiredParamNotExistsError("SMSB_DB_USER")
+            if not db_pass:
+                raise RequiredParamNotExistsError("SMSB_DB_PASS")
+    except RequiredParamNotExistsError as e:
+        logger.critical(e)
+        raise SystemExit(-1)
