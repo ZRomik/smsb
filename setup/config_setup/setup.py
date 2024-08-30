@@ -25,7 +25,7 @@ def read_param(key: str, default: str = None) -> str | None:
 
 def check_required_params(filename: str = None):
     logger.info(
-        "Проверка параметров для запуска."
+        "Чтение конфигурации..."
     )
 
     if filename:

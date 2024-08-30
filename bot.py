@@ -7,7 +7,7 @@ logger = logging.getLogger(__name__)
 
 async def startup(_):
     logger.info(
-        "Бот запущен"
+        "Бот запущен."
     )
 
 async def shutdown(_):
@@ -23,6 +23,9 @@ def main():
     load_config()
     check_required_params()
     logger = logging.getLogger(__name__)
+    logger.info(
+        "Подготовка к запуску..."
+    )
     bot, disp = setup_bot()
     executor.start_polling(
         dispatcher=disp,
