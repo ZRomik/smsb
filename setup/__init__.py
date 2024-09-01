@@ -4,4 +4,4 @@ from .config_setup import (
     read_param,
     check_required_params
 )
-from .bot_setup import setup_bot
+from .bot_setup import BotService

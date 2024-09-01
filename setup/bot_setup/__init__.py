@@ -1,1 +1,1 @@
-from .setup import setup_bot
+from .setup import BotService
