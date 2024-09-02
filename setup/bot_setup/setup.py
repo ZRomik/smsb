@@ -2,7 +2,7 @@ from aiogram import Bot, Dispatcher
 import logging
 from aiogram.types import ParseMode
 from ..config_setup import read_param
-from .singleton import Singleton
+from helpers import Singleton
 
 logger = logging.getLogger(__name__)
 
@@ -29,10 +29,10 @@ class BotService(Singleton):
         Инициализация бота
         :param token: токен бота
         """
-        logger.debug(
-            "Инициализация бота и деспетчера."
-        )
         if not self._bot and not self._disp:
+            logger.debug(
+                "Инициализация бота и деспетчера."
+            )
             token = read_param("SMSB_TOKEN")
             try:
                 self._bot = Bot(token=token, parse_mode=ParseMode.HTML)
