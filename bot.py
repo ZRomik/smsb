@@ -1,6 +1,6 @@
 from setup import setup_logging
 import logging
-from setup import load_config, check_required_params, setup_bot
+from setup import load_config, check_required_params, BotService
 from aiogram import executor
 
 logger = logging.getLogger(__name__)
@@ -28,7 +28,7 @@ def main():
     logger.info(
         "Подготовка к запуску..."
     )
-    bot, disp = setup_bot()
+    bot, disp = BotService().initialize()
     executor.start_polling(
         dispatcher=disp,
         on_startup=startup,
