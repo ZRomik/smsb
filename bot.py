@@ -28,7 +28,7 @@ def main():
     logger.info(
         "Подготовка к запуску..."
     )
-    bot, disp = BotService().initialize()
+    bot, disp = BotService().instances()
     executor.start_polling(
         dispatcher=disp,
         on_startup=startup,
