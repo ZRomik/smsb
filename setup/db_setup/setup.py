@@ -25,7 +25,7 @@ class DbService(Singleton):
         db_host = read_param('SMSB_DB_HOST', 'localhost')
         if db_type == "1":
             logger.debug(
-                "Выбрана БД PostgreSQL."
+                "Тип БД: PostgreSQL."
             )
             db_port = read_param('SMSB_DB_PORT', 5432)
             self._db = PostgresqlDatabase(
@@ -44,7 +44,7 @@ class DbService(Singleton):
             # )
         elif db_type == "2":
             logger.debug(
-                "Выбрана БД MySQL."
+                "Тип БД: MySQL."
             )
             db_port = read_param('SMSB_DB_PORT', 3306)
             self._db = MySQLDatabase(
