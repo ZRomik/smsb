@@ -5,3 +5,4 @@ from .config_setup import (
     check_required_params
 )
 from .bot_setup import BotService
+from .db_setup import DbService

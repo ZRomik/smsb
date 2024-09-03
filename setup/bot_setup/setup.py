@@ -12,9 +12,7 @@ class BotService(Singleton):
     Сервисный класс для ринициализации бота
     """
     def __init__(self):
-        logger.debug(
-            "Инициализация сервиса и инстанцирование классов."
-        )
+        super().__init__()
         token = read_param('SMSB_TOKEN')
         self._bot = Bot(token=token, parse_mode=ParseMode.HTML)
         self._disp = Dispatcher(bot=self._bot)
