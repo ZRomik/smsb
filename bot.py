@@ -1,20 +1,17 @@
-from setup import setup_logging
+from setup import SetupService
 import logging
-from setup import load_config, check_required_params, BotService
 from aiogram import executor
-from setup import DbService
-
-logger = logging.getLogger(__name__)
+from aiogram.utils.exceptions import *
 
 
 async def startup(_):
-    logger.info(
+    logging.info(
         "Бот запущен."
     )
 
 
 async def shutdown(_):
-    logger.info(
+    logging.info(
         "Бот остановлен."
     )
 
@@ -23,27 +20,27 @@ def main():
     """
     Запуск бота.
     """
-    setup_logging()
-    load_config()
-    check_required_params()
-    db = DbService().db
-    try:
-        db.connect()
-    except Exception as e:
-        logging.error(
-            "Не удалось подключиться к базе данных. Запуск невозможен.",
-            exc_info=True
-        )
-        raise SystemExit(-1)
-    logger.info(
-        "Подготовка к запуску..."
-    )
-    bot, disp = BotService().instances()
-    executor.start_polling(
-        dispatcher=disp,
-        on_startup=startup,
-        on_shutdown=shutdown
-    )
+    bot, dp = SetupService().setup_bot()
+    if bot and dp:
+        try:
+            executor.start_polling(
+                dispatcher=dp,
+                on_startup=startup,
+                on_shutdown=shutdown,
+                skip_updates=True
+            )
+        except Unauthorized as e:
+            logging.critical(
+                "Во время запуска произошоа ошибка %s."
+                " Проверьте усиановленный токен. Аварийное завершение работы!" % repr(e)
+            )
+            raise SystemExit(-1)
+        except Exception as e:
+            logging.critical(
+                "Во время запуска произошоа ошибка %s."
+                " Проверьте параметры запуска. Аварийное завершение работы!" % repr(e)
+            )
+            raise SystemExit(-1)
 
 
 if __name__ == "__main__":
