@@ -1,7 +1,6 @@
 from peewee import *
 from helpers import Singleton
 import logging
-from setup import read_param
 from .exceptions import DatabaseNotSupportedError
 
 logger = logging.getLogger(__name__)
