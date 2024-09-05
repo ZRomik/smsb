@@ -21,6 +21,9 @@ def main():
     Запуск бота.
     """
     bot, dp = SetupService().setup_bot()
+    db = SetupService().setup_connection()
+    if db.is_closed():
+        db.connect()
     if bot and dp:
         try:
             executor.start_polling(

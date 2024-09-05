@@ -7,6 +7,7 @@ import os
 from dotenv import load_dotenv
 from logging.handlers import RotatingFileHandler
 from .exceptions import RequiredParamNotExistsError
+from peewee import *
 
 class SetupService(Singleton):
     """
@@ -100,7 +101,7 @@ class SetupService(Singleton):
             )
         except Exception as e:
             logging.critical(
-                "При инициализации бота произоша ошибка %s! Запск невозможен!" % s
+                "При инициализации бота произоша ошибка %s! Запск невозможен!" % e
             )
             raise SystemExit(-1)
         return self._bot, self._dp
@@ -143,3 +144,46 @@ class SetupService(Singleton):
             ]
         )
 
+    def setup_connection(self):
+        """
+        Настройка соединения с БД
+        """
+        logging.debug(
+            'Настройка соединения с БД.'
+        )
+        db_type = self.__read_param('SMSB_DB_TYPE')
+        db_host = self.__read_param('SMSB_DB_HOST', 'localhost')
+        db_user = self.__read_param('SMSB_DB_USER')
+        db_pass = self.__read_param('SMSB_DB_PASS')
+        db_name = self.__read_param('SMSB_DB_NAME')
+        if db_type == "1": # postgres
+            db_port = self.__read_param('SMSB_DB_PORT', 5432)
+            self._db = PostgresqlDatabase(
+                database=db_name,
+                user=db_user,
+                password=db_pass,
+                host=db_host,
+                port=db_port
+            )
+        elif db_type == "2": # mysql
+            db_port = self.__read_param('SMSB_DB_PORT', 3306)
+            self._db = MySQLDatabase(
+                database=db_name,
+                user=db_user,
+                password=db_pass,
+                host=db_host,
+                port=db_port,
+            )
+        elif db_type == "3": # sqlite
+            self._db = SqliteDatabase(
+                database=db_name,
+                pragmas=(('foreign_keys', 1)) # применение ограничений внешнего ключа
+            )
+        logging.info(
+            "Установка соединения с БД..."
+        )
+        self._db.connect()
+        logging.debug(
+            "Соединение с БД установлено."
+        )
+        return self._db
