@@ -6,3 +6,4 @@ from .config_setup import (
 )
 from .bot_setup import BotService
 from .db_setup import DbService
+from .setup_service import SetupService
