@@ -29,6 +29,10 @@ class SetupService(Singleton):
 
     def __check_config(self):
 
+        logging.debug(
+            "Проверка файла конфигурации."
+        )
+
         bot_token = self.__read_param('SMSB_TOKEN')
         db_type = self.__read_param('SMSB_DB_TYPE')
         adm_cmd = self.__read_param('SMSB_ADM')
@@ -64,7 +68,7 @@ class SetupService(Singleton):
             raise SystemExit(-1)
 
         logging.debug(
-            "Завершено."
+            "Завершена."
         )
 
 
