@@ -14,8 +14,8 @@ class SetupService(Singleton):
     Класс сервис для настройки приложения
     """
 
-    def __init__(self):
-        self.__setup_logging()
+    def __init__(self, level = logging.DEBUG):
+        self.__setup_logging(level=level)
 
     def __read_param(self, key: str, default = None):
         """
@@ -28,10 +28,6 @@ class SetupService(Singleton):
         return os.getenv(key, default)
 
     def __check_config(self):
-
-        logging.debug(
-            "Проверка обязательных параметров..."
-        )
 
         bot_token = self.__read_param('SMSB_TOKEN')
         db_type = self.__read_param('SMSB_DB_TYPE')
@@ -84,7 +80,7 @@ class SetupService(Singleton):
         return load_dotenv(filename)
 
     def setup_bot(self) -> (Bot, Dispatcher):
-        # logging.debug("Подготовка к запуску...")
+        logging.info("Подготовка к запуску...")
         self.__load_config()
         self.__check_config()
         bot_token = self.__read_param('SMSB_TOKEN')
@@ -180,10 +176,10 @@ class SetupService(Singleton):
                 pragmas=(('foreign_keys', 1)) # применение ограничений внешнего ключа
             )
         logging.info(
-            "Установка соединения с БД..."
+            "Попытка соединения с БД..."
         )
         self._db.connect()
-        logging.debug(
+        logging.info(
             "Соединение с БД установлено."
         )
         return self._db
