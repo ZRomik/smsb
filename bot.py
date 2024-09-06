@@ -20,6 +20,7 @@ def main():
     """
     Запуск бота.
     """
+    SetupService()
     bot, dp = SetupService().setup_bot()
     db = SetupService().setup_connection()
     if db.is_closed():
@@ -32,16 +33,15 @@ def main():
                 on_shutdown=shutdown,
                 skip_updates=True
             )
-        except Unauthorized as e:
+        except Unauthorized:
             logging.critical(
-                "Во время запуска произошоа ошибка %s."
-                " Проверьте усиановленный токен. Аварийное завершение работы!" % repr(e)
+                "Во время запуска произошоа ошибка. Проверьте усnановленный токен. Аварийное завершение работы!"
             )
             raise SystemExit(-1)
         except Exception as e:
             logging.critical(
                 "Во время запуска произошоа ошибка %s."
-                " Проверьте параметры запуска. Аварийное завершение работы!" % repr(e)
+                " Проверьте параметры запуска. Аварийное завершение работы!" % str(e)
             )
             raise SystemExit(-1)
 
