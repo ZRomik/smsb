@@ -75,17 +75,17 @@ class SetupService(Singleton):
         :return: (bool) - результат выполнения
         """
         logging.debug(
-            "Загрузка конфигурации..."
+            "Загрузка конфигурации."
         )
         return load_dotenv(filename)
 
     def setup_bot(self) -> (Bot, Dispatcher):
-        logging.info("Подготовка к запуску...")
+        logging.info("Подготовка к запуску.")
         self.__load_config()
         self.__check_config()
         bot_token = self.__read_param('SMSB_TOKEN')
         logging.debug(
-            "Подготовка к запуску бота..."
+            "Подготовка к запуску бота."
         )
         try:
             self._bot = Bot(
@@ -176,7 +176,7 @@ class SetupService(Singleton):
                 pragmas=(('foreign_keys', 1)) # применение ограничений внешнего ключа
             )
         logging.info(
-            "Попытка соединения с БД..."
+            "Попытка подключения к БД."
         )
         self._db.connect()
         logging.info(
