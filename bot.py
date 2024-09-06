@@ -48,6 +48,7 @@ def main():
         logging.critical(
             "Не удалось инициализировать бот. Проверьте параметры в файле конфигурации."
         )
+        raise SystemExit(-1)
 
 
 if __name__ == "__main__":
