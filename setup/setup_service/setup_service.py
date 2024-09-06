@@ -9,15 +9,16 @@ from logging.handlers import RotatingFileHandler
 from .exceptions import RequiredParamNotExistsError
 from peewee import *
 
+
 class SetupService(Singleton):
     """
     Класс сервис для настройки приложения
     """
 
-    def __init__(self, level = logging.DEBUG):
+    def __init__(self, level=logging.DEBUG):
         self.__setup_logging(level=level)
 
-    def __read_param(self, key: str, default = None):
+    def __read_param(self, key: str, default=None):
         """
         Читает переданный параметр в файле конфигурации и возвращает прочитанное значение.
         Если параметр отсутствует возвращается значение по умолчанию
@@ -71,8 +72,7 @@ class SetupService(Singleton):
             "Завершена."
         )
 
-
-    def __load_config(self, filename = ".env") -> bool:
+    def __load_config(self, filename=".env") -> bool:
         """
         Возвращает истину, если файл конфигурации найден и загружен, иначе возвращает ложь
         :param filename: (str) - имя файл конфигурации (по умрлчанию .env)
@@ -106,7 +106,7 @@ class SetupService(Singleton):
             raise SystemExit(-1)
         return self._bot, self._dp
 
-    def __setup_logging(self, level = logging.DEBUG):
+    def __setup_logging(self, level=logging.DEBUG):
         """
         Настройка журналирования
         """
@@ -130,7 +130,7 @@ class SetupService(Singleton):
             os.path.join('logs', 'errors.log'),
             encoding="utf-8",
             mode="w",
-            maxBytes=5*1024*1024
+            maxBytes=5 * 1024 * 1024
         )
         file_handler.setLevel(logging.WARNING)
         file_handler.setFormatter(detailed_formatter)
@@ -156,7 +156,7 @@ class SetupService(Singleton):
         db_user = self.__read_param('SMSB_DB_USER')
         db_pass = self.__read_param('SMSB_DB_PASS')
         db_name = self.__read_param('SMSB_DB_NAME')
-        if db_type == "1": # postgres
+        if db_type == "1":  # postgres
             db_port = self.__read_param('SMSB_DB_PORT', 5432)
             self._db = PostgresqlDatabase(
                 database=db_name,
@@ -165,7 +165,7 @@ class SetupService(Singleton):
                 host=db_host,
                 port=db_port
             )
-        elif db_type == "2": # mysql
+        elif db_type == "2":  # mysql
             db_port = self.__read_param('SMSB_DB_PORT', 3306)
             self._db = MySQLDatabase(
                 database=db_name,
@@ -174,11 +174,10 @@ class SetupService(Singleton):
                 host=db_host,
                 port=db_port,
             )
-        elif db_type == "3": # sqlite
+        elif db_type == "3":  # sqlite
             self._db = SqliteDatabase(
                 database=db_name,
-                pragmas=(('foreign_keys', 1)) # применение ограничений внешнего ключа
-            )
+                pragmas={'foreign_keys': 1})  # применение ограничений внешнего ключа
         logging.info(
             "Попытка подключения к БД."
         )
