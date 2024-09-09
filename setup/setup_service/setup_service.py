@@ -1,6 +1,6 @@
 from aiogram import Bot, Dispatcher
 from aiogram.types import ParseMode
-from helpers import Singleton
+from helpers import Singleton, read_param
 import logging
 import sys
 import os
@@ -34,15 +34,15 @@ class SetupService(Singleton):
             "Проверка файла конфигурации."
         )
 
-        bot_token = self.__read_param('SMSB_TOKEN')
-        db_type = self.__read_param('SMSB_DB_TYPE')
-        adm_cmd = self.__read_param('SMSB_ADM')
-        adm_pass = self.__read_param('SMSB_ADM_PASS')
-        sys_cmd = self.__read_param('SMSB_SYS')
-        sys_pass = self.__read_param('SMSB_SYS_PASS')
-        db_name = self.__read_param('SMSB_DB_NAME')
-        db_user = self.__read_param('SMSB_DB_USER')
-        db_pass = self.__read_param('SMSB_DB_PASS')
+        bot_token = read_param('SMSB_TOKEN')
+        db_type = read_param('SMSB_DB_TYPE')
+        adm_cmd = read_param('SMSB_ADM')
+        adm_pass = read_param('SMSB_ADM_PASS')
+        sys_cmd = read_param('SMSB_SYS')
+        sys_pass = read_param('SMSB_SYS_PASS')
+        db_name = read_param('SMSB_DB_NAME')
+        db_user = read_param('SMSB_DB_USER')
+        db_pass = read_param('SMSB_DB_PASS')
 
         try:
             if not bot_token:

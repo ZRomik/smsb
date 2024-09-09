@@ -44,6 +44,11 @@ def main():
                 " Проверьте параметры запуска. Аварийное завершение работы!" % str(e)
             )
             raise SystemExit(-1)
+        except TerminatedByOtherGetUpdates:
+            logging.critical(
+                "Запущена еще одна версия бота. Аварийное завершение работы!"
+            )
+            raise SystemExit(-1)
     else:
         logging.critical(
             "Не удалось инициализировать бот. Проверьте параметры в файле конфигурации."
